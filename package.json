@@ -1,0 +1,51 @@
+{
+  "name": "guebly-scaffold-desktop",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Desktop app (Electron) to generate project folders/files from a pasted tree structure.",
+  "main": "main.js",
+  "author": "Guebly",
+  "scripts": {
+    "start": "electron .",
+    "dist:win": "electron-builder --win nsis",
+    "dist": "electron-builder"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "electron-builder": "^24.13.3",
+    "electron": "^30.0.0"
+  },
+  "build": {
+    "appId": "com.guebly.scaffold",
+    "productName": "Guebly Scaffold",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*",
+      "!dist/**"
+    ],
+    "extraResources": [
+      {
+        "from": "assets/guebly.png",
+        "to": "assets/guebly.png"
+      }
+    ],
+    "win": {
+      "icon": "build/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Guebly Scaffold</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo-wrap">
+          <img class="logo" src="../assets/guebly.png" alt="Guebly" />
+        </div>
+        <div class="titles">
+          <div class="name">Guebly Scaffold</div>
+          <div class="sub">Gera pastas e arquivos a partir do “tree” colado</div>
+        </div>
+      </div>
+      <div class="status" id="status">Pronto</div>
+    </header>
+
+    <main class="grid">
+      <section class="card">
+        <div class="card-head">
+          <div class="card-title">1) Cole a estrutura</div>
+          <div class="hint">Cole exatamente como você copia do ChatGPT / tree. Pastas terminam com “/”.</div>
+        </div>
+        <textarea id="tree" spellcheck="false" placeholder="Ex:
+guebly-growth-engine/
+├── docker-compose.yml
+├── .env.example
+├── README.md
+└── src/
+    ├── main.ts
+    └── app.module.ts
+"></textarea>
+        <div class="tools">
+          <button class="btn ghost" id="btnExample">Inserir exemplo</button>
+          <button class="btn ghost" id="btnClear">Limpar</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <div class="card-title">2) Saída e geração</div>
+          <div class="hint">Escolha a pasta base. O app cria uma subpasta (opcional) e gera tudo lá.</div>
+        </div>
+
+        <div class="row">
+          <label class="label">Pasta base de saída</label>
+          <div class="pick">
+            <input id="outputDir" readonly placeholder="Clique em Selecionar..." />
+            <button class="btn" id="btnPick">Selecionar</button>
+          </div>
+        </div>
+
+        <div class="row">
+          <label class="label">Subpasta (opcional)</label>
+          <input id="projectName" placeholder="ex: guebly-growth-engine" />
+          <div class="mini">Se o seu tree já começar com “nome-do-projeto/”, pode deixar em branco.</div>
+        </div>
+
+        <div class="actions">
+          <button class="btn primary" id="btnGenerate">Gerar estrutura</button>
+        </div>
+
+        <div class="log" id="log"></div>
+
+        <div class="warning">
+          <b>Importante:</b> isso gera <u>estrutura + stubs</u>. Para conteúdo real, use templates (repositório base) ou um gerador com IA + templates.
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div>Local-only • Não envia nada pra internet</div>
+      <div class="muted">v1.0</div>
+    </footer>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>
