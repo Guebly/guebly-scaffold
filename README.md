@@ -1,155 +1,164 @@
-# Guebly Scaffold Desktop
+<div align="center">
+  <img src="assets/guebly.png" alt="Guebly Logo" width="180" />
 
-App desktop (Windows) para **gerar pastas e arquivos automaticamente** a partir de uma estrutura “tree” colada (como o ChatGPT normalmente monta).
+  <h1>Guebly Scaffold</h1>
 
-> ✅ Fluxo: você cola a estrutura do projeto → escolhe a pasta de saída → o app cria **toda a árvore de pastas** e cria **arquivos stub** (placeholders) nos caminhos informados.
+  <p><strong>App desktop para gerar estrutura de projetos a partir de um "tree" colado.</strong></p>
 
----
+  <p>
+    <a href="#-como-usar">Como usar</a> •
+    <a href="#-instalação-para-devs">Dev</a> •
+    <a href="#-gerar-instalador-exe">Build</a> •
+    <a href="#-distribuição-via-github-actions">CI/CD</a> •
+    <a href="#-contribuindo">Contribuir</a>
+  </p>
 
-## Sumário
-
-- [O que este app faz](#o-que-este-app-faz)
-- [O que ele NÃO faz](#o-que-ele-não-faz)
-- [Requisitos](#requisitos)
-- [Rodar em modo dev](#rodar-em-modo-dev)
-- [Gerar instalador `.exe` no Windows](#gerar-instalador-exe-no-windows)
-- [Distribuir para outras pessoas](#distribuir-para-outras-pessoas)
-- [Como usar o app](#como-usar-o-app)
-- [Formato do “tree” aceito](#formato-do-tree-aceito)
-- [Exemplo completo de estrutura](#exemplo-completo-de-estrutura)
-- [Saída gerada](#saída-gerada)
-- [Dicas e problemas comuns](#dicas-e-problemas-comuns)
-- [Estrutura do projeto](#estrutura-do-projeto)
-- [Segurança e privacidade](#segurança-e-privacidade)
-- [Licença](#licença)
+  <p>
+    <img src="https://img.shields.io/badge/Electron-30.x-47848F?logo=electron&logoColor=white" alt="Electron" />
+    <img src="https://img.shields.io/badge/Platform-Windows-0078D6?logo=windows&logoColor=white" alt="Windows" />
+    <img src="https://img.shields.io/badge/Guebly-guebly.com.br-black" alt="Guebly" />
+    <img src="https://img.shields.io/badge/License-All%20rights%20reserved-red" alt="License" />
+  </p>
+</div>
 
 ---
 
-## O que este app faz
+## Sobre
+
+O **Guebly Scaffold** é uma ferramenta desktop desenvolvida pela [Guebly](https://www.guebly.com.br) — empresa de tecnologia especializada em automações inteligentes, plataformas interativas e sistemas personalizados.
+
+O app resolve um problema concreto do dia a dia: você recebe de uma IA (ou do comando `tree`) uma estrutura de projeto, e precisa criar todas as pastas e arquivos manualmente. O Guebly Scaffold faz isso em segundos, gerando toda a árvore de diretórios com arquivos stub prontos para edição.
+
+> ✅ **Fluxo:** cole a estrutura → escolha a pasta de saída → o app cria tudo automaticamente.
+
+---
+
+## O que o app faz
 
 - ✅ Cria **pastas e subpastas** conforme a árvore colada
-- ✅ Cria **arquivos** conforme os nomes colados
-- ✅ Gera conteúdo básico (stub) para alguns tipos comuns:
-  - `.ts`, `.md`, `.yml/.yaml`, `.env*`, etc.
-- ✅ Tudo roda **localmente** (não envia dados para internet)
+- ✅ Cria **arquivos** com conteúdo stub básico
+- ✅ Suporta tipos comuns com stubs inteligentes: `.ts`, `.md`, `.yml`, `.yaml`, `.env`, `package.json`, etc.
+- ✅ Roda **100% localmente** — nenhum dado é enviado para a internet
 
----
+## O que o app NÃO faz
 
-## O que ele NÃO faz
-
-- ❌ Não “adivinha” o código completo de um projeto apenas pela estrutura.
-  - A estrutura (tree) não contém o conteúdo real dos arquivos.
-- ❌ Não gera automaticamente um projeto Nest/React completo “pronto e perfeito” sem template.
-  - Para isso, o caminho certo é usar **templates** (repo base) e/ou IA para preencher conteúdo.
+- ❌ Não gera o código real dos arquivos — apenas stubs (placeholders)
+- ❌ Não é um gerador de projetos completo (tipo `create-react-app` ou `nest new`)
+- ❌ Para projetos com conteúdo real, use templates base + IA para preencher
 
 ---
 
 ## Requisitos
 
-### Para rodar em dev / gerar instalador
+### Para usar o app (usuário final)
+- Windows 10 ou superior (x64)
+- Baixar o instalador `.exe` na aba [Releases](../../releases)
 
-- **Node.js (LTS)** instalado
-- **Windows** (para gerar `.exe` localmente)
-- Git (se você for versionar no GitHub)
+### Para rodar em dev ou gerar o build
+- **Node.js LTS** (recomendado: v20+)
+- **Windows** (para gerar `.exe` localmente com NSIS)
+- **Git** (para versionar e usar o CI)
 
 ---
 
-## Rodar em modo dev
-
-Na raiz do projeto:
+## Instalação para devs
 
 ```bash
+# Clone o repositório
+git clone https://github.com/guebly/GueblyScaffold.git
+cd GueblyScaffold
+
+# Instale as dependências
 npm install
+
+# Rode em modo desenvolvimento
 npm start
 ```
 
-Isso abre o app Electron em modo desenvolvimento.
-
 ---
 
-## Gerar instalador `.exe` no Windows
+## Gerar instalador `.exe`
 
-Na raiz do projeto:
+No Windows, rode na raiz do projeto:
 
 ```bash
-npm install
 npm run dist:win
 ```
 
-O instalador será gerado na pasta `dist/`, normalmente com nome parecido com:
+O instalador será gerado em `dist/`, com nome parecido com:
 
-- `dist/Guebly Scaffold Setup 1.0.0.exe`
+```
+dist/Guebly Scaffold Setup 1.0.0.exe
+```
 
-Para abrir a pasta rapidamente:
+Para abrir a pasta `dist/` rapidamente:
 
 ```bat
 start dist
 ```
 
+> **Obs:** Sem assinatura digital (code signing), o Windows pode exibir o alerta do SmartScreen. Isso é esperado para executáveis não assinados. Clique em "Mais informações" → "Executar assim mesmo".
+
 ---
 
-## Distribuir para outras pessoas
+## Distribuição via GitHub Actions
 
-### Opção 1 (mais simples): você gera o `.exe` e manda
+O projeto inclui um workflow em `.github/workflows/release.yml` que:
 
-- Gere o instalador (`npm run dist:win`)
-- Envie o arquivo `.exe` para quem vai usar
+1. Roda automaticamente em push de tags `v*.*.*` (ou manualmente via `workflow_dispatch`)
+2. Compila o instalador `.exe` no GitHub (runner Windows)
+3. Sobe o artefato para download direto na aba **Actions → Artifacts**
 
-**Observação importante:** sem assinatura digital (code signing), o Windows pode mostrar alerta (SmartScreen / Smart App Control). Isso é normal para executáveis novos e não assinados.
+### Como disparar uma release
 
-### Opção 2 (recomendada para distribuição): GitHub Actions (CI)
+```bash
+git tag v1.0.1
+git push origin v1.0.1
+```
 
-Se o seu repositório tiver workflow, você pode:
+Acesse a aba **Actions** no GitHub para acompanhar e depois baixar o artefato gerado.
 
-- gerar o instalador automaticamente no GitHub
-- disponibilizar por release ou artifacts
-
-> Dependendo das permissões do repositório/organização, o GitHub pode bloquear “read & write” do token e impedir criação de Release automática.  
-> Nesse caso, use “Artifacts” (download do arquivo direto do workflow run).
+> **Nota sobre permissões:** dependendo das configurações do repositório/organização, o token do GitHub pode não ter permissão de escrita para criar Releases automáticas. Nesse caso, use os **Artifacts** do workflow run diretamente.
 
 ---
 
 ## Como usar o app
 
 1. Abra o **Guebly Scaffold Desktop**
-2. Na área “1) Cole a estrutura”, cole sua árvore (tree)
-3. Clique em **Selecionar** e escolha a **pasta base** onde o projeto será criado
-4. (Opcional) Preencha “Subpasta” (nome do projeto)
-   - se o seu tree já começa com `nome-do-projeto/`, deixe em branco
+2. Na área **"1) Cole a estrutura"**, cole o seu tree
+3. Clique em **Selecionar** e escolha a pasta base de destino
+4. _(Opcional)_ Preencha o campo **Subpasta** com o nome do projeto
+   - Se o seu tree já começa com `nome-do-projeto/`, deixe em branco
 5. Clique em **Gerar estrutura**
-6. O app vai mostrar o caminho final gerado no log
+6. O log exibirá o caminho final criado
 
 ---
 
-## Formato do “tree” aceito
+## Formato do "tree" aceito
 
-O app suporta o padrão mais comum de árvore:
+| Elemento | Exemplo |
+|---|---|
+| Pasta raiz | `meu-projeto/` |
+| Arquivo | `├── README.md` |
+| Subpasta | `└── src/` |
+| Arquivo em subpasta | `    ├── main.ts` |
+| Comentário (ignorado) | `├── docker-compose.yml  # comentário` |
 
-- Pastas terminam com `/`
+**Regras:**
+- Pastas devem terminar com `/`
 - Linhas com `├──` e `└──` são aceitas
-- Prefixos `│   ` e indentação são aceitos
-- Comentários após ` #` são ignorados
-
-Exemplos de linhas válidas:
-
-- `meu-projeto/`
-- `├── README.md`
-- `└── src/`
-- `    ├── main.ts`
-- `    └── app.module.ts`
-- `├── docker-compose.yml        # comentário`
+- Prefixos `│   ` e indentação de 4 espaços são suportados
+- Comentários após ` #` são ignorados automaticamente
 
 ---
 
-## Exemplo completo de estrutura
-
-Cole algo assim:
+## Exemplo de tree
 
 ```text
 guebly-growth-engine/
 ├── docker-compose.yml        # Orquestração
-├── .env.example              # Variáveis de ambiente
-├── README.md                 # Documentação
+├── .env.example
+├── README.md
 ├── package.json
 └── src/
     ├── main.ts
@@ -162,108 +171,89 @@ guebly-growth-engine/
         │   ├── mining.service.ts
         │   └── adapters/
         ├── brain/
-        │   ├── brain.service.ts
-        │   └── prompts/
-        ├── outreach/
-        │   ├── whatsapp.provider.ts
-        │   ├── email.provider.ts
-        │   └── meta-ads.provider.ts
-        └── orchestration/
-            ├── campaign.processor.ts
-            └── scheduler.service.ts
+        │   └── brain.service.ts
+        └── outreach/
+            ├── whatsapp.provider.ts
+            └── email.provider.ts
 ```
 
 ---
 
-## Saída gerada
+## Stubs gerados por tipo de arquivo
 
-Se você escolher a pasta base `C:\Projetos` e colar um tree que começa com `guebly-growth-engine/`, o app vai gerar:
-
-```text
-C:\Projetos\guebly-growth-engine\
-  docker-compose.yml
-  .env.example
-  README.md
-  package.json
-  src\
-    main.ts
-    app.module.ts
-    config\
-      queue.config.ts
-      openai.config.ts
-    modules\
-      ...
-```
-
-E cada arquivo criado terá um **conteúdo stub** (placeholder), por exemplo:
-
-- `.ts` → um comentário + `export {};`
-- `.md` → um título básico
-- `.yml` → comentário básico
+| Arquivo/extensão | Conteúdo do stub |
+|---|---|
+| `package.json` | JSON com `name`, `version`, scripts básicos |
+| `README.md` / `*.md` | Título `# nome-do-projeto` |
+| `*.ts` | `/** Auto-generated stub */` + `export {};` |
+| `*.yml` / `*.yaml` | `# Auto-generated stub` |
+| `.env*` | `# Auto-generated stub` |
+| Outros | `/* Auto-generated stub */` |
 
 ---
 
-## Dicas e problemas comuns
+## Problemas comuns
 
-### “A pasta de destino já existe”
+**"A pasta de destino já existe"**
+O app não sobrescreve pastas existentes por segurança. Apague a pasta ou escolha outro destino.
 
-O app, por padrão, não sobrescreve.
+**"Minha árvore ficou errada"**
+Verifique: pasta sem `/` no final, indentação quebrada ao copiar/colar, ou caracteres especiais fora do padrão.
 
-- Apague a pasta existente
-- ou escolha outro local/nome
-
-### “Minha árvore ficou errada”
-
-Normalmente é por:
-
-- pasta sem `/` no final
-- indentação quebrada ao copiar/colar
-- tree com caracteres diferentes do padrão
-
-### “Windows bloqueia o instalador”
-
-Sem assinatura digital, pode acontecer:
-
-- clique em “Mais informações”
-- “Executar assim mesmo”
-
-Para reduzir alertas de forma real:
-
-- use **code signing** (certificado de assinatura)
+**"Windows bloqueia o instalador"**
+Clique em "Mais informações" → "Executar assim mesmo". Para eliminar o alerta definitivamente, use um certificado de assinatura digital (code signing).
 
 ---
 
 ## Estrutura do projeto
 
-Principais arquivos:
-
-```text
+```
 .
-├── main.js                 # Processo principal (Electron)
-├── preload.js              # Bridge segura (contextIsolation)
-├── renderer/               # UI (HTML/CSS/JS)
-│   ├── index.html
-│   ├── styles.css
-│   └── renderer.js
+├── main.js                   # Processo principal Electron + lógica de geração
+├── preload.js                # Bridge segura (contextIsolation)
+├── renderer/
+│   ├── index.html            # Interface do app
+│   ├── styles.css            # Estilos (dark mode)
+│   └── renderer.js           # Lógica da UI
 ├── assets/
-│   └── guebly.png          # Logo
+│   └── guebly.png            # Logo Guebly
 ├── build/
-│   ├── icon.ico            # Ícone Windows (>=256)
+│   ├── icon.ico              # Ícone Windows (≥256px)
 │   └── icon.png
-└── .github/workflows/
-    └── release.yml         # CI (se habilitado)
+└── .github/
+    └── workflows/
+        └── release.yml       # CI — build automático no GitHub Actions
 ```
 
 ---
 
 ## Segurança e privacidade
 
-- O app trabalha **somente localmente**.
-- Não envia a estrutura colada para nenhum servidor.
-- Você escolhe a pasta de destino e ele apenas cria arquivos/pastas.
+- O app funciona **100% localmente**
+- Não há comunicação com servidores externos
+- Nenhum dado (tree, caminhos, nomes) é transmitido pela internet
+- Você tem controle total sobre onde os arquivos são criados
+
+---
+
+## Contribuindo
+
+Veja o arquivo [CONTRIBUTING.md](CONTRIBUTING.md) para diretrizes de contribuição.
+
+---
+
+## Changelog
+
+Veja o arquivo [CHANGELOG.md](CHANGELOG.md) para o histórico de versões.
+
+---
+
+## Sobre a Guebly
+
+A [Guebly](https://www.guebly.com.br) é uma empresa de tecnologia brasileira especializada em **automações inteligentes, plataformas interativas, sistemas personalizados e integrações com APIs** — inteligência aplicada para escalar negócios.
 
 ---
 
 ## Licença
 
-All rights reserved
+© Guebly. Todos os direitos reservados.
