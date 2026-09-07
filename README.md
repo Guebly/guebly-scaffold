@@ -20,6 +20,17 @@ Um app desktop Electron que transforma a saida do comando `tree` (ou qualquer ar
 
 ---
 
+## Acesso
+
+**Não é um app web** — é um instalador desktop Windows (`.exe`, Electron), baixado
+na aba [Releases](../../releases) deste repositório. Não há e nunca houve versão
+rodando no navegador: confirmado pelo `package.json` (`electron-builder`, target
+`nsis`) e pelo `CHANGELOG.md` (item "Interface desktop Electron" já na v1.0.0).
+
+Não faz parte de https://tools.guebly.com.br nem de nenhum outro subdomínio —
+esse domínio hospeda ferramentas **web**; este projeto roda só localmente na
+máquina do usuário (ver seção "Segurança e privacidade" abaixo).
+
 ## Sobre
 
 O **Guebly Scaffold** e uma ferramenta desktop desenvolvida pela [Guebly](https://www.guebly.com.br) — empresa de tecnologia brasileira especializada em automacoes inteligentes, plataformas interativas e sistemas personalizados.

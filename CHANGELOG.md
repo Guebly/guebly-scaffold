@@ -7,6 +7,13 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 
 ---
 
+## [Não versionado] — 2026-09-07
+
+### Documentação
+- README ganhou seção "Acesso" esclarecendo que o projeto é um app **desktop
+  Electron** (instalador `.exe` via Releases), nunca uma ferramenta web — não
+  faz parte de `tools.guebly.com.br` nem de nenhum outro subdomínio.
+
 ## [1.0.0] — 2025
 
 ### Adicionado
